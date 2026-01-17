@@ -1,7 +1,7 @@
 package emily.amorim.livraria.controller;
 
-import emily.amorim.livraria.entity.Livro;
-import emily.amorim.livraria.service.LivroService;
+import emily.amorim.livraria.entity.Autor;
+import emily.amorim.livraria.service.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/Livros")
-public class LivroController {
+@RequestMapping(value = "/autor")
+public class AutorController {
 
     @Autowired
-    private LivroService service;
+    private AutorService service;
 
     @PostMapping
-    public ResponseEntity<Livro> create(@RequestBody Livro obj){
+    public ResponseEntity<Autor> create(@RequestBody Autor obj){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(obj));
     }
 
@@ -35,17 +35,17 @@ public class LivroController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Livro> getId(@PathVariable Long id){
+    public ResponseEntity<Autor> getId(@PathVariable Long id){
         return ResponseEntity.ok().body(service.getId(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<Livro>> getId(){
+    public ResponseEntity<List<Autor>> getId(){
         return ResponseEntity.ok().body(service.getAll());
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Livro> update(@PathVariable Long id, @RequestBody Livro obj){
+    public ResponseEntity<Autor> update(@PathVariable Long id, @RequestBody Autor obj){
         obj.setId(id);
         return ResponseEntity.ok().body(service.update(obj));
     }

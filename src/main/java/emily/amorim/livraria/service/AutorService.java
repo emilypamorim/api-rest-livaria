@@ -1,7 +1,7 @@
 package emily.amorim.livraria.service;
 
-import emily.amorim.livraria.entity.Livro;
-import emily.amorim.livraria.repository.LivroRepository;
+import emily.amorim.livraria.entity.Autor;
+import emily.amorim.livraria.repository.AutorRepository;
 import emily.amorim.livraria.service.exception.EntityNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LivroService {
+public class AutorService {
 
     @Autowired // não é necessário cria o construtor com esssa anotação
-    private LivroRepository repository;
+    private AutorRepository repository;
 
-    public Livro create(Livro obj){
+    public Autor create(Autor obj){
          return repository.save(obj); // está salvando o objeto no banco
     }
 
@@ -23,28 +23,28 @@ public class LivroService {
         repository.deleteById(id);
     }
 
-    public Livro getId(Long id){
-        Optional<Livro> obj = repository.findById(id);
+    public Autor getId(Long id){
+        Optional<Autor> obj = repository.findById(id);
         if(obj.isEmpty()){
-            throw new EntityNotFound("Livro de ID:"+id+" não encontrado");
+            throw new EntityNotFound("Autor de ID:"+id+" não encontrado");
         }
         return obj.get();
     }
 
-    public List<Livro> getAll(){
+    public List<Autor> getAll(){
         return repository.findAll();
     }
 
-    public Livro update(Livro obj){
-        Optional<Livro> newObj = repository.findById(obj.getId());
+    public Autor update(Autor obj){
+        Optional<Autor> newObj = repository.findById(obj.getId());
         if(newObj.isEmpty()){
-            throw new EntityNotFound("Livro de ID:"+obj.getId()+" não encontrado");
+            throw new EntityNotFound("Autor de ID:"+obj.getId()+" não encontrado");
         }
-        updateLivro(newObj, obj);
+        updateAutor(newObj, obj);
         return repository.save(newObj.get());
     }
 
-    private void updateLivro(Optional<Livro> newObj, Livro obj) {
+    private void updateAutor(Optional<Autor> newObj, Autor obj) {
         newObj.get().setName(obj.getName());
     }
 }
